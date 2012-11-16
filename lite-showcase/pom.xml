@@ -12,5 +12,7 @@
 	<artifactId>lite-showcase</artifactId>
 	<packaging>war</packaging>
 	<name>lite-showcase</name>
-
+    <properties>
+        <netbeans.hint.deploy.server>Tomcat</netbeans.hint.deploy.server>
+    </properties>
 </project>

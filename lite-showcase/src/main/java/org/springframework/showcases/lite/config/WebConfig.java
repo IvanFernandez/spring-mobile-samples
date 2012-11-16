@@ -19,6 +19,7 @@ import java.util.List;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.mobile.device.DeviceHandlerMethodArgumentResolver;
 import org.springframework.mobile.device.DeviceResolverHandlerInterceptor;
 import org.springframework.mobile.device.site.SitePreferenceHandlerMethodArgumentResolver;
 import org.springframework.mobile.device.switcher.SiteSwitcherHandlerInterceptor;
@@ -29,6 +30,8 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
+import org.springframework.mobile.device.DeviceWebArgumentResolver;
+import org.springframework.web.bind.support.WebArgumentResolver;
 
 /**
  * @author Roy Clarkson
@@ -38,30 +41,33 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 @EnableWebMvc
 public class WebConfig extends WebMvcConfigurerAdapter {
 
-	// implementing WebMvcConfigurer
+    // implementing WebMvcConfigurer
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(new DeviceResolverHandlerInterceptor());
+        //registry.addInterceptor(SiteSwitcherHandlerInterceptor.mDot("testdomain.com"));
+        registry.addInterceptor(SiteSwitcherHandlerInterceptor.urlPath("/mobile", "/tablet", "/lite-showcase"));
+    }
 
-	public void addInterceptors(InterceptorRegistry registry) {
-		registry.addInterceptor(new DeviceResolverHandlerInterceptor());
-		//registry.addInterceptor(SiteSwitcherHandlerInterceptor.mDot("testdomain.com"));
-		registry.addInterceptor(SiteSwitcherHandlerInterceptor.urlPath("/mobile", "/tablet", "/lite-showcase"));
-	}
+    public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
+        argumentResolvers.add(new SitePreferenceHandlerMethodArgumentResolver());
+	argumentResolvers.add(new DeviceHandlerMethodArgumentResolver());
+   }
 
-	public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
-		argumentResolvers.add(new SitePreferenceHandlerMethodArgumentResolver());
-	}
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
+    }
 
-	public void addResourceHandlers(ResourceHandlerRegistry registry) {
-		registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
-	}
-
-	// additional webmvc-related beans
-
-	@Bean
-	public InternalResourceViewResolver internalResourceViewResolver() {
-		InternalResourceViewResolver resolver = new InternalResourceViewResolver();
-		resolver.setPrefix("/WEB-INF/views/");
-		resolver.setSuffix(".jsp");
-		return resolver;
-	}
-
+    // additional webmvc-related beans
+    @Bean
+    public InternalResourceViewResolver internalResourceViewResolver() {
+        InternalResourceViewResolver resolver = new InternalResourceViewResolver();
+        resolver.setPrefix("/WEB-INF/views/");
+        resolver.setSuffix(".jsp");
+        return resolver;
+    }
+    
+    @Bean DeviceWebArgumentResolver device() {
+        return new DeviceWebArgumentResolver();
+        
+    }
 }

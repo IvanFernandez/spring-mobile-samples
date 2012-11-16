@@ -1,0 +1,108 @@
+/* 
+    Document   : main
+    Created on : 14-nov-2012, 12:10:36
+    Author     : ivan
+    Description:
+        Purpose of the stylesheet follows.
+*/
+/* Portrait */
+/*@media screen and (orientation:portrait) {
+    p {
+        font-style: italic;
+        font-weight: bold;
+        font-size: 2em;
+        color: red;
+    }
+    img {
+        display: block;
+    }}
+/* Landscape */
+/*
+@media screen and (orientation:landscape) {
+    h1 {
+        font-size: 2em;
+    }
+    p {
+        font-style: italic;
+        color: lightsteelblue;
+        font-size: 1em;
+    }
+    img {
+        width: 50%;
+    }
+}
+*/
+
+/*
+section {
+    border: 2px solid #000;
+    border-radius: 5px;
+    padding: 20px;
+    float: right;
+    width: 45%;
+}
+#mobile_technologies{
+    float: left;
+    margin-right: 10px;
+}
+
+aside, footer {
+    clear:both;
+}
+
+li {
+    background-color: greenyellow;
+}
+*/
+@media all and (min-width: 600px) {
+    section {
+        border: 2px solid #000;
+        border-radius: 5px;
+        padding: 20px;
+        float: right;
+        width: 40%;
+        margin: 0 auto;
+        margin-left: 5px;
+
+    }
+    #mobile_systems {
+        float: none;
+    }
+
+}
+
+@media all and (max-width: 600px) {
+    section {
+        border: 2px solid #000;
+        border-radius: 5px;
+        padding: 20px;
+        clear:both;
+        margin: 0 auto;
+    }
+
+}
+/*@media only screen and (min-width: 100px) {
+    p {
+        font-style: italic;
+        font-weight: bold;
+        font-size: 2em;
+        color: red;
+    }
+    img {
+        display: block;
+    }
+}
+
+@media only screen and (max-width: 480px) {
+    h1 {
+        font-size: 2em;
+    }
+    p {
+        font-style: italic;
+        color: lightsteelblue;
+        font-size: 1em;
+    }
+    img {
+        width: 50%;
+    }
+}*/

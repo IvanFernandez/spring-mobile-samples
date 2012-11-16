@@ -15,6 +15,8 @@
  */
 package org.springframework.showcases.lite;
 
+import org.springframework.mobile.device.Device;
+import org.springframework.mobile.device.DeviceUtils;
 import org.springframework.mobile.device.site.SitePreference;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,26 +24,40 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
  * Handles requests for the Home page.
+ *
  * @author Keith Donald
  * @author Roy Clarkson
  */
 @Controller
 public class HomeController {
 
-	/**
-	 * Show the home page to the user.
-	 * Declares a {@link SitePreference} parameter to show how you can resolve the user's site preference.
-	 * This controller renders a different version of the home view if the user has a mobile site preference.
-	 */
-	@RequestMapping("/")
-	public String home(SitePreference sitePreference, Model model) {
-		if (sitePreference == SitePreference.MOBILE) {
-			return "home-mobile";
-		} else if (sitePreference == SitePreference.TABLET) {
-			return "home-tablet";
-		} else {
-			return "home";
-		}
-	}
-
+    /**
+     * Show the home page to the user. Declares a {@link SitePreference}
+     * parameter to show how you can resolve the user's site preference. This
+     * controller renders a different version of the home view if the user has a
+     * mobile site preference.
+     */
+    @RequestMapping("/")
+    public String home(Device device, SitePreference sitePreference, Model model) {
+        /*
+         System.out.println(device.isMobile());
+         System.out.println(device.isTablet());
+         System.out.println(device.isNormal());
+         if (device.isMobile()) {
+         return "home-mobile";
+         } else if (device.isTablet()) {
+         return "home-tablet";
+         } else {
+         return "home";
+         }
+         */
+        System.out.println(sitePreference);
+        if (sitePreference == SitePreference.MOBILE) {
+            return "home-mobile";
+        } else if (sitePreference == SitePreference.TABLET) {
+            return "home-tablet";
+        } else {
+            return "home";
+        }
+    }
 }
